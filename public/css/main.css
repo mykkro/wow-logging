@@ -1,0 +1,63 @@
+a, a:link {
+	text-decoration: none;
+}
+
+.eventclass {
+	background-color: #bef;
+	border: 1px solid #ade;
+	padding: 10px;
+	margin: 10px;
+
+}
+
+.field {
+	background-color: #efb;
+	border: 1px solid #cd8;
+	padding: 10px;
+	margin: 10px;
+}
+
+.rounded-corners {
+     -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.eventclass > .name {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.eventclass .defs:before {
+   content: "Defines class: ";
+   color: #666;
+   font-style: italic;
+}
+
+.eventclass .uses:before {
+   content: "Uses class: ";
+   color: #666;
+   font-style: italic;
+}
+
+.eventclass .extends:before {
+   content: "Extends class: ";
+   color: #666;
+   font-style: italic;
+}
+
+.field > .name {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.field > .type:before {
+   content: "Type: ";
+   color: #666;
+   font-style: italic;
+}
+
+.fields {
+	font-size: 80%;
+}
