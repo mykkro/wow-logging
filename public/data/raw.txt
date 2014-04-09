@@ -1,0 +1,48 @@
+Patient ID,pID,,ID je prideleno SPES platformou (Vienna Admin/Visual portal)
+Computer ID,cID,,ID je prideleno pocitaci s WOW aplikaci prostrednictvim serveru (NO SPES server)
+,,,
+WOW username,wowUeNm,,prihlasovani WOW aplikace na server prostrednictvim uzivatelskeho jmena
+WOW password,wowPwd,,prihlasovani WOW aplikace na server prostrednictvim uzivatelskeho hesla
+,,,
+Info of Event,infoEvent,"{ event: Event, wowId: string }","- k transportu eventu
+- v lokalni databazi se uklada jako AbstractEvent
+- event je identifikovan globalne parametrem (wowId, event.id) 
+- wowId - identifikace pocitace, kde je nainstalovana WOW aplikace"
+Exception of Event,exceptionEvent,"{ type:""app.exception"", message: string, data: object }",logovani vyjimek WOW aplikace
+,,,
+,,,
+,,,
+,,,
+,,,
+
+
+Abstrat Event,abstractEvent,"{ type: string, timestamp: datetime, id: integer, version: string }","- 'typ' rozlisuje typ eventu (user, admin)
+- 'id' je identifikace eventu v ramci aplikace"
+,,,
+App Event,app.,,prefix pro eventy aplikace
+App Startup,app.startup,,spusteni aplikace
+App Shutdown,app.shutdown,,zastaveni aplikace
+,,,
+Admin Event,admin.,,prefix pro admin eventy
+Admin App Importd,admin.app.imported,,udalost importu v aplikaci
+Admin User Create,admin.user.create,,udalost vytvoreni uzivatele v aplikaci
+Admin User Added,admin.user.added,,udalost prirazeni uzivatele
+Admin User Changed,admin.user.changed,,udalost zmeny uzivatele
+,,,
+User Event,user.,,prefix pro user udalosti
+User Login,user.login,,udalost prihlaseni uzivatele
+User Logout,user.logout,,udalost odhlaseni uzivatele
+User Page,user.page,,udalost stranky uzivatele
+,,,
+Video Event,video.,,prefix pro video udalosti
+Video Textsearch,video.textsearch,,udalost textoveho vyhledavani videa
+Video Search,video.search,,udalost vyhledavani videa
+Video Play,video.play,,udalost prehrani videa
+Video Pause,video.pause,,udalost pozastaveni prehravani videa
+Video Stop,video.stop,,udalost zastaveni prehravani videa
+Video Favorite,video.favorite,,udalost prirazeni videa k oblibenym
+Video Unfavorite,video.unfavorite,,udalost odstraneni videa z oblibenych
+,,,
+Game Event,game.,,prefix pro udalosti her
+Game Loaded,game.loaded,,udalost nahrani hry
+Game Unloaded,game.unloaded,,udalost uvolneni/opusteni hry

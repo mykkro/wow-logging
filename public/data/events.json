@@ -1,0 +1,128 @@
+{
+	"$type": "wow-logging-events-list",
+	"classes": [
+		{
+			"name": "event",
+			"className": "AbstractEvent",
+			"extends": null,
+			"description": "",
+			"fields": {
+				"type": {
+					"title": "type",
+					"description": "",
+					"type": "string"
+				},
+				"timestamp": {
+					"title": "timestamp",
+					"description": "",
+					"type": "datetime"
+				},
+				"id": {
+					"title": "id",
+					"description": "",
+					"type": "integer"
+				}
+			}
+		},
+		{
+			"name": "app.event",
+			"className": "AppEvent",
+			"extends": "AbstractEvent",
+			"description": ""
+		},
+		{
+			"name": "app.startup",
+			"uses": "AppEvent",
+			"description": ""
+		},
+		{
+			"name": "app.shutdown",
+			"uses": "AppEvent",
+			"extends": "",
+			"description": ""
+		},
+		{
+			"name": "admin.event",
+			"className": "AdminEvent",
+			"extends": "AbstractEvent",
+			"description": ""
+		},
+		{
+			"name": "admin.appimport",
+			"className": "AdminImportAppEvent",
+			"extends": "AdminEvent",
+			"description": ""
+		},
+		{
+			"name": "admin.usercreate",
+			"className": "AdminUserCreatedEvent",
+			"extends": "AdminEvent",
+			"description": ""
+		},
+		{
+			"name": "admin.userchange",
+			"className": "AdminUserChangeEvent",
+			"extends": "AdminEvent",
+			"description": ""
+		},
+		{
+			"name": "user.event",
+			"className": "UserEvent",
+			"extends": "AbstractEvent",
+			"description": ""
+		},
+		{
+			"name": "user.login",
+			"uses": "UserEvent",
+			"description": ""
+		},
+		{
+			"name": "user.logout",
+			"uses": "UserEvent",
+			"description": ""
+		},
+		{
+			"name": "user.page",
+			"className": "UserPageEvent",
+			"extends": "UserEvent",
+			"description": "",
+			"fields": {
+				"uri": {
+					"title": "uri",
+					"description": "",
+					"type": "uri"
+				}
+			}
+		},
+		{
+			"name": "video.event",
+			"className": "VideoEvent",
+			"extends": "AbstractEvent",
+			"description": ""
+		},
+		{
+			"name": "video.textsearch",
+			"className": "VideoSearchEvent",
+			"extends": "VideoEvent",
+			"description": "",
+			"fields": {
+				"query": {
+					"title": "query",
+					"description": "",
+					"type": "string"
+				},
+				"page": {
+					"title": "page",
+					"description": "",
+					"type": "integer"
+				},
+				"recordsPerPage": {
+					"title": "recordsPerPage",
+					"description": "",
+					"type": "integer"
+				}
+			}
+		}
+
+	]
+}
