@@ -182,7 +182,7 @@
 			"name": "game.setting",
 			"uses": "GameEvent",
 			"description": "Udalost nastaveni hry uzivatelem."
-		},
+		}
 
 
 

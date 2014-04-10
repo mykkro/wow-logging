@@ -5,8 +5,13 @@ $(document).ready(function() {
 	var root = $("#eventdocs")
 
 	function displayClasses(cls) {
+		var nav = $("#nav")
+		var ul = $("<ul>").appendTo(nav)
 		for(var i=0; i<cls.length; i++) {
 			displayClass(cls[i])
+			ul.append($("<li>").html(
+				$("<a>").attr("href", "#"+cls[i].name).text(cls[i].name)
+			))
 		}
 	}
 

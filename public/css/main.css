@@ -61,3 +61,28 @@ a, a:link {
 .fields {
 	font-size: 80%;
 }
+
+#nav, #eventdocs {
+  display: inline-block;
+  vertical-align: top;
+}
+
+#nav {
+  width: 200px;
+}
+
+.nav {
+  background-color: #ebf;
+  border: 1px solid #c8d;
+  padding: 10px;
+  margin: 10px;
+}
+
+.nav>ul{
+     list-style:none;
+     padding-left: 10px;
+}
+
+#eventdocs {
+  width: 800px;
+}
