@@ -5,21 +5,21 @@
 			"name": "event",
 			"className": "AbstractEvent",
 			"extends": null,
-			"description": "",
+			"description": "Deklarace pro vsechny typy udalosti.",
 			"fields": {
 				"type": {
 					"title": "type",
-					"description": "",
+					"description": "Rozlisuje typ udalosti (app, user, admin).",
 					"type": "string"
 				},
 				"timestamp": {
 					"title": "timestamp",
-					"description": "",
+					"description": "Casova znacka udalosti.",
 					"type": "datetime"
 				},
 				"id": {
 					"title": "id",
-					"description": "",
+					"description": "Identifikace udalosti v ramci aplikace.",
 					"type": "integer"
 				}
 			}
@@ -28,68 +28,67 @@
 			"name": "app.event",
 			"className": "AppEvent",
 			"extends": "AbstractEvent",
-			"description": ""
+			"description": "Udalost aplikace (app. prefix pro udalosti aplikace)."
 		},
 		{
 			"name": "app.startup",
 			"uses": "AppEvent",
-			"description": ""
+			"description": "Udalost spusteni aplikace."
 		},
 		{
 			"name": "app.shutdown",
 			"uses": "AppEvent",
-			"extends": "",
-			"description": ""
+			"description": "Udalost zastaveni aplikace."
 		},
 		{
 			"name": "admin.event",
 			"className": "AdminEvent",
 			"extends": "AbstractEvent",
-			"description": ""
+			"description": "Udalost administrator (admin. prefix pro administrator udalosti)."
 		},
 		{
 			"name": "admin.appimport",
 			"className": "AdminImportAppEvent",
 			"extends": "AdminEvent",
-			"description": ""
+			"description": "Udalost importu v aplikaci prostrednictvim administratora."
 		},
 		{
 			"name": "admin.usercreate",
 			"className": "AdminUserCreatedEvent",
 			"extends": "AdminEvent",
-			"description": ""
+			"description": "Udalost vytvoreni uzivatele aplikace administratorem."
 		},
 		{
 			"name": "admin.userchange",
 			"className": "AdminUserChangeEvent",
 			"extends": "AdminEvent",
-			"description": ""
+			"description": "Udalost zmeny uzivatele aplikace administratorem."
 		},
 		{
 			"name": "user.event",
 			"className": "UserEvent",
 			"extends": "AbstractEvent",
-			"description": ""
+			"description": "Udalost uzivatel (user. prefix pro uzivatel udalosti)."
 		},
 		{
 			"name": "user.login",
 			"uses": "UserEvent",
-			"description": ""
+			"description": "Udalost prihlaseni uzivatele aplikace."
 		},
 		{
 			"name": "user.logout",
 			"uses": "UserEvent",
-			"description": ""
+			"description": "Udalost odhlaseni uzivatele aplikace."
 		},
 		{
 			"name": "user.page",
 			"className": "UserPageEvent",
 			"extends": "UserEvent",
-			"description": "",
+			"description": "Udalost stranky uzivatele.",
 			"fields": {
 				"uri": {
 					"title": "uri",
-					"description": "",
+					"description": "Identifikator zdroje stranky.",
 					"type": "uri"
 				}
 			}
@@ -98,7 +97,7 @@
 			"name": "video.event",
 			"className": "VideoEvent",
 			"extends": "AbstractEvent",
-			"description": ""
+			"description": "Udalost videa (video. prefix pro video udalosti)."
 		},
 		{
 			"name": "video.textsearch",
@@ -108,21 +107,84 @@
 			"fields": {
 				"query": {
 					"title": "query",
-					"description": "",
+					"description": "Vyraz pouzity k vyhledani videi s odpovidajicim tematem.",
 					"type": "string"
 				},
 				"page": {
 					"title": "page",
-					"description": "",
+					"description": "Cislo stranky s videama.",
 					"type": "integer"
 				},
 				"recordsPerPage": {
 					"title": "recordsPerPage",
-					"description": "",
+					"description": "Pocet videi na strance.",
 					"type": "integer"
 				}
 			}
-		}
+		},
+		{
+			"name": "video.play",
+			"uses": "VideoEvent",
+			"description": "Udalost prehrani videa."
+		},
+		{
+			"name": "video.pause",
+			"uses": "VideoEvent",
+			"description": "Udalost pozastaveni prehravani videa."
+		},
+		{
+			"name": "video.stop",
+			"uses": "VideoEvent",
+			"description": "Udalost zastaveni prehravani videa."
+		},
+		{
+			"name": "video.favorite",
+			"uses": "VideoEvent",
+			"description": "Udalost prirazeni videa k oblibenym."
+		},
+		{
+			"name": "video.unfavorite",
+			"uses": "VideoEvent",
+			"description": "Udalost odstraneni videa z obligenych."
+		},
+		{
+			"name": "game.event",
+			"className": "GameEvent",
+			"extends": "AbstractEvent",
+			"description": "Udalost hry (game. prefix pro udalosti hry)."
+		},
+		{
+			"name": "game.loaded",
+			"uses": "GameEvent",
+			"description": "Udalost nacteni hry."
+		},
+		{
+			"name": "game.unloaded",
+			"uses": "GameEvent",
+			"description": "Udalost uvolneni(odstraneni) hry."
+		},
+		{
+			"name": "game.play",
+			"uses": "GameEvent",
+			"description": "Udalost spusteni hry."
+		},
+		{
+			"name": "game.pause",
+			"uses": "GameEvent",
+			"description": "Udalost pozastaveni hry."
+		},
+		{
+			"name": "game.quit",
+			"uses": "GameEvent",
+			"description": "Udalost ukonceni hry."
+		},
+		{
+			"name": "game.setting",
+			"uses": "GameEvent",
+			"description": "Udalost nastaveni hry uzivatelem."
+		},
+
+
 
 	]
 }
