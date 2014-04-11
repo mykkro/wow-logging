@@ -368,7 +368,7 @@
 		},
 		{
 			"name": "book.open",
-			"classname": "BookOpenEvent",
+			"className": "BookOpenEvent",
 			"extends": "BookEvent",
 			"description": "Otevření knihy.",
 			"fields": {
