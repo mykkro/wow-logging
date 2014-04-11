@@ -38,6 +38,16 @@ a, a:link {
 	font-weight: bold;
 }
 
+.version-missing {
+  color: red;
+}
+
+.eventclass .version:before {
+   content: "Version: ";
+   color: #666;
+   font-style: italic;
+}
+
 .eventclass .defs:before {
    content: "Defines class: ";
    color: #666;

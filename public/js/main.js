@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	var eventsDescUri = "data/events.json"
+	var eventsDescUri = "data/structures.json"
 
 	var root = $("#eventdocs")
 
@@ -32,6 +32,7 @@ $(document).ready(function() {
 			.append($("<a>").attr("name", cls.name))
 			.append($("<a>").attr("name", cls.className))
 			.append($("<div>").addClass("name").text(cls.name))
+			.append($("<div>").addClass("version").html(displayVersion(cls.version)))
 			.append($("<div>").addClass("defs").text(cls.className))
 		if(cls.extends) {
 			out.append(
@@ -54,6 +55,10 @@ $(document).ready(function() {
 		} else {
 			return $("<span>").text(type)
 		}
+	}
+
+	function displayVersion(ver) {
+		return ver ? $("<span>").text(ver) : $("<span>").addClass("version-missing").text("Version number missing!")
 	}
 
 	function displayField(name, data, root) {

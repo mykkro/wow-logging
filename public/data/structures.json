@@ -63,28 +63,42 @@
 			}
 		},
 		{
-			"name": "bookinfo",
-			"className": "BookInfo",
+			"name": "appinfo",
+			"className": "AppInfo",
 			"extends": null,
-			"description": "Informace o knize.",
 			"version": "1.0",
+			"description": "Obecné informace o importované aplikaci.",
 			"fields": {
+				"appid": {
+					"type": "integer",
+					"title": "App ID",
+					"description": "Unikátní ID aplikace."
+				},
+				"appname": {
+					"type": "string",
+					"title": "Jméno",
+					"description": "Jméno aplikace."
+				},
+				"appversion": {
+					"type": "string",
+					"title": "verze",
+					"description": "Verze aplikace."
+				},
+				"uri": {
+					"type": "uri",
+					"title": "URI",
+					"description": "URI přiřazené importované aplikaci."
+				},
+				"origin": {
+					"type": "uri",
+					"title": "URI zdroje",
+					"description": "URI zdroje pokud byla aplikace importována z AppStoru."
+				},
 				"keywords": {
 					"name": "keywords",
 					"title": "Klíčová slova",
 					"type": "string",
 					"description": "Klíčová slova k obsahu knihy."
-				},
-				"pagecount": {
-					"name": "pagecount",
-					"title": "Počet stran",
-					"type": "integer",
-					"description": "Počet stran knihy."
-				},
-				"bookid": {
-					"type": "integer",
-		            "title": "ID knihy",
-		            "description": "ID knihy."
 				},
 				"created": {
 					"title": "created",
@@ -94,33 +108,27 @@
 			}
 		},
 		{
+			"name": "bookinfo",
+			"className": "BookInfo",
+			"extends": "AppInfo",
+			"description": "Informace o knize.",
+			"version": "1.0",
+			"fields": {
+				"pagecount": {
+					"name": "pagecount",
+					"title": "Počet stran",
+					"type": "integer",
+					"description": "Počet stran knihy."
+				}
+			}
+		},
+		{
 			"name": "gameinfo",
 			"className": "GameInfo",
-			"extends": null,
+			"extends": "AppInfo",
 			"description": "Informace o hře.",
 			"version": "1.0",
 			"fields": {
-				"keywords": {
-					"name": "keywords",
-					"title": "Klíčová slova",
-					"type": "string",
-					"description": "Klíčová slova."
-				},
-				"gameid": {
-					"type": "integer",
-		            "title": "ID hry",
-		            "description": "ID knihy."
-				},
-				"version": {
-					"type": "string",
-		            "title": "Verze",
-		            "description": "Verze hry."
-				},
-				"created": {
-					"title": "created",
-					"description": "Datum vytvoření hry.",
-					"type": "datetime"
-				}
 			}
 		},
 		{
@@ -256,6 +264,7 @@
 			"name": "event",
 			"className": "AbstractEvent",
 			"extends": null,
+			"version": "1.0",
 			"description": "Deklarace pro vsechny typy udalosti.",
 			"fields": {
 				"type": {
@@ -279,6 +288,7 @@
 			"name": "app.event",
 			"className": "AppEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Událost aplikace (app. prefix pro udalosti aplikace)."
 		},
 		{
@@ -295,38 +305,20 @@
 			"name": "admin.event",
 			"className": "AdminEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Událost administrator (admin. prefix pro administrator udalosti)."
 		},
 		{
 			"name": "admin.appimport",
 			"className": "AdminImportAppEvent",
 			"extends": "AdminEvent",
+			"version": "1.0",
 			"description": "Událost importu v aplikaci prostrednictvim administratora.",
 			"fields": {
-				"appid": {
-					"type": "integer",
-					"title": "App ID",
-					"description": "Unikátní ID aplikace."
-				},
-				"appname": {
-					"type": "string",
-					"title": "Jméno",
-					"description": "Jméno aplikace."
-				},
-				"appversion": {
-					"type": "string",
-					"title": "verze",
-					"description": "Verze aplikace."
-				},
-				"uri": {
-					"type": "uri",
-					"title": "URI",
-					"description": "URI přiřazené importované aplikaci."
-				},
-				"origin": {
-					"type": "uri",
-					"title": "URI zdroje",
-					"description": "URI zdroje pokud byla aplikace importována z AppStoru."
+				"appinfo": {
+					"type": "AppInfo",
+					"title": "Info",
+					"description": "Informace o importované aplikaci."
 				}
 			}
 		},
@@ -334,6 +326,7 @@
 			"name": "admin.usercreate",
 			"className": "AdminUserCreatedEvent",
 			"extends": "AdminEvent",
+			"version": "1.0",
 			"description": "Událost vytvoření uživatele aplikace administrátorem.",
 			"fields": {
 				"userinfo": {
@@ -347,6 +340,7 @@
 			"name": "admin.userchange",
 			"className": "AdminUserChangeEvent",
 			"extends": "AdminEvent",
+			"version": "1.0",
 			"description": "Událost změny uživatele aplikace administrátorem.",
 			"fields": {
 				"userinfo": {
@@ -360,6 +354,7 @@
 			"name": "user.event",
 			"className": "UserEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Událost uzivatel (user. prefix pro uzivatel udalosti).",
 			"fields": {
 				"userid": {
@@ -391,6 +386,7 @@
 			"name": "user.page",
 			"className": "UserPageEvent",
 			"extends": "UserEvent",
+			"version": "1.0",
 			"description": "Zobrazení stránky WOW aplikace uživatelem.",
 			"fields": {
 				"uri": {
@@ -404,12 +400,14 @@
 			"name": "video.event",
 			"className": "VideoEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Událost video stránky."
 		},
 		{
 			"name": "video.textsearch",
 			"className": "VideoSearchEvent",
 			"extends": "VideoEvent",
+			"version": "1.0",
 			"description": "",
 			"fields": {
 				"query": {
@@ -458,6 +456,7 @@
 			"name": "game.event",
 			"className": "GameEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Obecná událost hry.",
 			"fields": {
 				"gameid": {
@@ -515,6 +514,7 @@
 			"name": "book.event",
 			"className": "BookEvent",
 			"extends": "AbstractEvent",
+			"version": "1.0",
 			"description": "Obecná událost knihy - eScrapBooku.",
 			"fields": {
 				"bookid": {
@@ -528,6 +528,7 @@
 			"name": "book.open",
 			"className": "BookOpenEvent",
 			"extends": "BookEvent",
+			"version": "1.0",
 			"description": "Otevření knihy.",
 			"fields": {
 				"bookinfo": {
@@ -546,6 +547,7 @@
 			"name": "book.turn",
 			"className": "BookTurnEvent",
 			"extends": "BookEvent",
+			"version": "1.0",
 			"description": "Otočení stránky knihy.",
 			"fields": {
 				"leftpage": {
@@ -564,6 +566,7 @@
 			"name": "book.media",
 			"className": "BookMediaEvent",
 			"extends": "BookEvent",
+			"version": "1.0",
 			"description": "Událost spojená s audio klipem/videem v knize.",
 			"fields": {
 				"elementno": {
@@ -577,12 +580,14 @@
 			"name": "book.audio",
 			"className": "BookAudioEvent",
 			"extends": "BookMediaEvent",
+			"version": "1.0",
 			"description": "Událost spojená s audio klipem v knize."
 		},
 		{
 			"name": "book.video",
 			"className": "BookVideoEvent",
 			"extends": "BookMediaEvent",
+			"version": "1.0",
 			"description": "Událost spojená s video klipem v knize."
 		},
 		{
