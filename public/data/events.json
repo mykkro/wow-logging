@@ -3,10 +3,71 @@
 	"version": "1.0",
 	"classes": [
 		{
+			"name": "userinfo",
+			"className": "UserInfo",
+			"extends": null,
+			"description": "Informace o uživateli.",
+			"version": "1.0",
+			"fields": {
+				"userid": {
+					"name": "userid",
+					"title": "User ID",
+					"type": "integer",
+					"description": "ID uživatele."
+				},
+				"gender": {
+					"type": "string",
+					"enum": ["m", "f"],
+		            "title": "Pohlaví",
+		            "description": "Pohlaví uživatele."
+				},
+				"age": {
+					"title": "Věk",
+					"description": "Věk uživatele.",
+					"type": "integer"
+				},
+				"medprofiles": {
+					"type": "array",
+		            "items": {
+		                "type": "MedInfo"
+		            },
+		            "title": "Medicínské profily",
+		            "description": "Medicínské profily uživatele."
+				}
+
+			}
+		},
+		{
+			"name": "medicalinfo",
+			"className": "MedInfo",
+			"extends": null,
+			"description": "Medicínský profil uživatele.",
+			"version": "1.0",
+			"fields": {
+				"subtype": {
+					"title": "Subtype",
+					"description": "Subtype.",
+					"type": "string"
+				},
+				"phase": {
+					"name": "phase",
+					"title": "Fáze",
+					"type": "string",
+					"description": "Fáze onemocnění."
+				},
+				"behaviour": {
+					"type": "behaviour",
+		            "title": "Behaviour",
+		            "description": "Behaviour."
+				}
+			}
+		},
+		{
 			"name": "bookinfo",
 			"className": "BookInfo",
 			"extends": null,
 			"description": "Informace o knize.",
+			"version": "1.0",
 			"fields": {
 				"keywords": {
 					"name": "keywords",
@@ -33,10 +94,41 @@
 			}
 		},
 		{
+			"name": "gameinfo",
+			"className": "GameInfo",
+			"extends": null,
+			"description": "Informace o hře.",
+			"version": "1.0",
+			"fields": {
+				"keywords": {
+					"name": "keywords",
+					"title": "Klíčová slova",
+					"type": "string",
+					"description": "Klíčová slova."
+				},
+				"gameid": {
+					"type": "integer",
+		            "title": "ID hry",
+		            "description": "ID knihy."
+				},
+				"version": {
+					"type": "string",
+		            "title": "Verze",
+		            "description": "Verze hry."
+				},
+				"created": {
+					"title": "created",
+					"description": "Datum vytvoření hry.",
+					"type": "datetime"
+				}
+			}
+		},
+		{
 			"name": "bookpageinfo",
 			"className": "BookPageInfo",
 			"extends": null,
 			"description": "Informace o stránce knihy.",
+			"version": "1.0",
 			"fields": {
 				"pageno": {
 					"name": "pageno",
@@ -87,6 +179,7 @@
 			"className": "MediaInfo",
 			"extends": null,
 			"description": "Informace o médiu (obrázek, video, audio).",
+			"version": "1.0",
 			"fields": {
 				"keywords": {
 					"name": "keywords",
@@ -107,6 +200,7 @@
 			"className": "ImageInfo",
 			"extends": "MediaInfo",
 			"description": "Informace o obrázku.",
+			"version": "1.0",
 			"fields": {
 				"kind": {
 					"name": "kind",
@@ -122,6 +216,7 @@
 			"className": "AVInfo",
 			"extends": "MediaInfo",
 			"description": "Informace o audio klipu nebo videu.",
+			"version": "1.0",
 			"fields": {
 				"autoplay": {
 					"name": "autoplay",
@@ -147,13 +242,15 @@
 			"name": "voiceinfo",
 			"className": "VoiceInfo",
 			"extends": "AVInfo",
-			"description": "Informace o audio klipu."
+			"description": "Informace o audio klipu.",
+			"version": "1.0"
 		},
 		{
 			"name": "videoinfo",
 			"className": "VideoInfo",
 			"extends": "AVInfo",
-			"description": "Informace o video klipu."
+			"description": "Informace o video klipu.",
+			"version": "1.0"
 		},
 		{
 			"name": "event",
@@ -204,19 +301,60 @@
 			"name": "admin.appimport",
 			"className": "AdminImportAppEvent",
 			"extends": "AdminEvent",
-			"description": "Událost importu v aplikaci prostrednictvim administratora."
+			"description": "Událost importu v aplikaci prostrednictvim administratora.",
+			"fields": {
+				"appid": {
+					"type": "integer",
+					"title": "App ID",
+					"description": "Unikátní ID aplikace."
+				},
+				"appname": {
+					"type": "string",
+					"title": "Jméno",
+					"description": "Jméno aplikace."
+				},
+				"appversion": {
+					"type": "string",
+					"title": "verze",
+					"description": "Verze aplikace."
+				},
+				"uri": {
+					"type": "uri",
+					"title": "URI",
+					"description": "URI přiřazené importované aplikaci."
+				},
+				"origin": {
+					"type": "uri",
+					"title": "URI zdroje",
+					"description": "URI zdroje pokud byla aplikace importována z AppStoru."
+				}
+			}
 		},
 		{
 			"name": "admin.usercreate",
 			"className": "AdminUserCreatedEvent",
 			"extends": "AdminEvent",
-			"description": "Událost vytvoreni uzivatele aplikace administratorem."
+			"description": "Událost vytvoření uživatele aplikace administrátorem.",
+			"fields": {
+				"userinfo": {
+					"title": "User Info",
+					"type": "UserInfo",
+					"description": "Informace o uživateli."
+				}
+			}
 		},
 		{
 			"name": "admin.userchange",
 			"className": "AdminUserChangeEvent",
 			"extends": "AdminEvent",
-			"description": "Událost zmeny uzivatele aplikace administratorem."
+			"description": "Událost změny uživatele aplikace administrátorem.",
+			"fields": {
+				"userinfo": {
+					"title": "User Info",
+					"type": "UserInfo",
+					"description": "Aktualizované informace o uživateli."
+				}
+			}
 		},
 		{
 			"name": "user.event",
@@ -235,18 +373,25 @@
 		{
 			"name": "user.login",
 			"uses": "UserEvent",
-			"description": "Událost prihlaseni uzivatele aplikace."
+			"description": "Událost přihlášení uživatele aplikace.",
+			"fields": {
+				"userinfo": {
+					"title": "User Info",
+					"type": "UserInfo",
+					"description": "Informace o uživateli."
+				}
+			}
 		},
 		{
 			"name": "user.logout",
 			"uses": "UserEvent",
-			"description": "Událost odhlaseni uzivatele aplikace."
+			"description": "Událost odhlášení uživatele aplikace."
 		},
 		{
 			"name": "user.page",
 			"className": "UserPageEvent",
 			"extends": "UserEvent",
-			"description": "Událost stranky uzivatele.",
+			"description": "Zobrazení stránky WOW aplikace uživatelem.",
 			"fields": {
 				"uri": {
 					"title": "uri",
@@ -259,7 +404,7 @@
 			"name": "video.event",
 			"className": "VideoEvent",
 			"extends": "AbstractEvent",
-			"description": "Událost videa (video. prefix pro video udalosti)."
+			"description": "Událost video stránky."
 		},
 		{
 			"name": "video.textsearch",
@@ -302,19 +447,25 @@
 		{
 			"name": "video.favorite",
 			"uses": "VideoEvent",
-			"description": "Událost prirazeni videa k oblibenym."
+			"description": "Událost přiřazení videa k oblíbeným."
 		},
 		{
 			"name": "video.unfavorite",
 			"uses": "VideoEvent",
-			"description": "Událost odstraneni videa z oblíbených."
+			"description": "Událost odstranění videa z oblíbených."
 		},
 		{
 			"name": "game.event",
 			"className": "GameEvent",
 			"extends": "AbstractEvent",
-			"description": "Událost hry (game. prefix pro udalosti hry).",
+			"description": "Obecná událost hry.",
 			"fields": {
+				"gameid": {
+					"name": "gameid",
+					"title": "Game ID",
+					"description": "ID hry.",
+					"type": "integer"
+				},
 				"uri": {
 					"name": "uri",
 					"title": "URI",
@@ -326,7 +477,14 @@
 		{
 			"name": "game.loaded",
 			"uses": "GameEvent",
-			"description": "Událost nacteni hry."
+			"description": "Událost načtení hry.",
+			"fields": {
+				"gameinfo": {
+					"title": "Game Info",
+					"description": "Informace o hře",
+					"type": "GameInfo"
+				}
+			}
 		},
 		{
 			"name": "game.unloaded",

@@ -62,8 +62,12 @@ $(document).ready(function() {
 			.addClass("field rounded-corners")
 			.append($("<div>").addClass("name").text(name))
 			.append($("<div>").addClass("title").text(data.title))
-			.append($("<div>").addClass("type").html(displayTypeLink(data.type)))
-			.append($("<div>").addClass("description").text(data.description))
+			if(data.type == "array") {				
+				out.append($("<div>").addClass("arraytype").html(displayTypeLink(data.items.type)))
+			} else {
+				out.append($("<div>").addClass("type").html(displayTypeLink(data.type)))
+			}
+		out.append($("<div>").addClass("description").text(data.description))
 		root.append(out)
 	}
 

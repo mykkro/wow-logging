@@ -67,6 +67,12 @@ a, a:link {
    font-style: italic;
 }
 
+.field > .arraytype:before {
+   content: "Type: Array of ";
+   color: #666;
+   font-style: italic;
+}
+
 .fields {
 	font-size: 80%;
 }
