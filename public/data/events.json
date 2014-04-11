@@ -1,6 +1,160 @@
 {
-	"$type": "wow-logging-events-list",
+	"$type": "wow-logging-api",
+	"version": "1.0",
 	"classes": [
+		{
+			"name": "bookinfo",
+			"className": "BookInfo",
+			"extends": null,
+			"description": "Informace o knize.",
+			"fields": {
+				"keywords": {
+					"name": "keywords",
+					"title": "Klíčová slova",
+					"type": "string",
+					"description": "Klíčová slova k obsahu knihy."
+				},
+				"pagecount": {
+					"name": "pagecount",
+					"title": "Počet stran",
+					"type": "integer",
+					"description": "Počet stran knihy."
+				},
+				"bookid": {
+					"type": "integer",
+		            "title": "ID knihy",
+		            "description": "ID knihy."
+				},
+				"created": {
+					"title": "created",
+					"description": "Datum vytvoření knihy.",
+					"type": "datetime"
+				}
+			}
+		},
+		{
+			"name": "bookpageinfo",
+			"className": "BookPageInfo",
+			"extends": null,
+			"description": "Informace o stránce knihy.",
+			"fields": {
+				"pageno": {
+					"name": "pageno",
+					"title": "Číslo stránky",
+					"type": "integer",
+					"description": "Pořadí stránky v knize, číslováno od jedné."
+				},
+				"keywords": {
+					"name": "keywords",
+					"title": "Klíčová slova",
+					"type": "string",
+					"description": "Klíčová slova k obsahu na stránce."
+				},
+				"wordcount": {
+					"name": "wordcount",
+					"title": "Počet slov na stránce",
+					"type": "integer",
+					"description": "Počet slov v textu na stránce."
+				},
+				"images": {
+					"type": "array",
+		            "items": {
+		                "type": "ImageInfo"
+		            },
+		            "title": "Informace o obrázcích na stránce.",
+		            "description": "Informace o obrázcích na stránce."
+				},
+				"voices": {
+					"type": "array",
+		            "items": {
+		                "type": "VoiceInfo"
+		            },
+		            "title": "Informace o zvukových stopách na stránce.",
+		            "description": "Informace o zvukových stopách na stránce."
+				},
+				"videos": {
+					"type": "array",
+		            "items": {
+		                "type": "VideoInfo"
+		            },
+		            "title": "Informace o videích na stránce.",
+		            "description": "Informace o videích na stránce."
+				}
+			}
+		},
+		{
+			"name": "mediainfo",
+			"className": "MediaInfo",
+			"extends": null,
+			"description": "Informace o médiu (obrázek, video, audio).",
+			"fields": {
+				"keywords": {
+					"name": "keywords",
+					"title": "Klíčová slova",
+					"type": "string",
+					"description": "Klíčová slova."
+				},
+				"uri": {
+					"name": "uri",
+					"title": "URI média.",
+					"type": "string",
+					"description": "URI média."
+				}
+			}
+		},
+		{
+			"name": "imageinfo",
+			"className": "ImageInfo",
+			"extends": "MediaInfo",
+			"description": "Informace o obrázku.",
+			"fields": {
+				"kind": {
+					"name": "kind",
+					"title": "Typ obrázku.",
+					"type": "string",
+					"enum": ["bw", "color"],
+					"description": "Typ obrázku - bw, color."
+				}
+			}
+		},
+		{
+			"name": "avinfo",
+			"className": "AVInfo",
+			"extends": "MediaInfo",
+			"description": "Informace o audio klipu nebo videu.",
+			"fields": {
+				"autoplay": {
+					"name": "autoplay",
+					"title": "Autoplay",
+					"type": "boolean",
+					"description": "Automatické přehrávání."
+				},
+				"loop": {
+					"name": "loop",
+					"title": "Loop",
+					"type": "boolean",
+					"description": "Cyklické přehrávání."
+				},
+				"duration": {
+					"name": "duration",
+					"title": "Délka záznamu",
+					"type": "integer",
+					"description": "Délka záznamu v sekundách."
+				}
+			}
+		},
+		{
+			"name": "voiceinfo",
+			"className": "VoiceInfo",
+			"extends": "AVInfo",
+			"description": "Informace o audio klipu."
+		},
+		{
+			"name": "videoinfo",
+			"className": "VideoInfo",
+			"extends": "AVInfo",
+			"description": "Informace o video klipu."
+		},
 		{
 			"name": "event",
 			"className": "AbstractEvent",
@@ -28,63 +182,71 @@
 			"name": "app.event",
 			"className": "AppEvent",
 			"extends": "AbstractEvent",
-			"description": "Udalost aplikace (app. prefix pro udalosti aplikace)."
+			"description": "Událost aplikace (app. prefix pro udalosti aplikace)."
 		},
 		{
 			"name": "app.startup",
 			"uses": "AppEvent",
-			"description": "Udalost spusteni aplikace."
+			"description": "Událost spusteni aplikace."
 		},
 		{
 			"name": "app.shutdown",
 			"uses": "AppEvent",
-			"description": "Udalost zastaveni aplikace."
+			"description": "Událost zastaveni aplikace."
 		},
 		{
 			"name": "admin.event",
 			"className": "AdminEvent",
 			"extends": "AbstractEvent",
-			"description": "Udalost administrator (admin. prefix pro administrator udalosti)."
+			"description": "Událost administrator (admin. prefix pro administrator udalosti)."
 		},
 		{
 			"name": "admin.appimport",
 			"className": "AdminImportAppEvent",
 			"extends": "AdminEvent",
-			"description": "Udalost importu v aplikaci prostrednictvim administratora."
+			"description": "Událost importu v aplikaci prostrednictvim administratora."
 		},
 		{
 			"name": "admin.usercreate",
 			"className": "AdminUserCreatedEvent",
 			"extends": "AdminEvent",
-			"description": "Udalost vytvoreni uzivatele aplikace administratorem."
+			"description": "Událost vytvoreni uzivatele aplikace administratorem."
 		},
 		{
 			"name": "admin.userchange",
 			"className": "AdminUserChangeEvent",
 			"extends": "AdminEvent",
-			"description": "Udalost zmeny uzivatele aplikace administratorem."
+			"description": "Událost zmeny uzivatele aplikace administratorem."
 		},
 		{
 			"name": "user.event",
 			"className": "UserEvent",
 			"extends": "AbstractEvent",
-			"description": "Udalost uzivatel (user. prefix pro uzivatel udalosti)."
+			"description": "Událost uzivatel (user. prefix pro uzivatel udalosti).",
+			"fields": {
+				"userid": {
+					"name": "userid",
+					"title": "User ID",
+					"type": "integer",
+					"description": "ID uživatele."
+				}
+			}
 		},
 		{
 			"name": "user.login",
 			"uses": "UserEvent",
-			"description": "Udalost prihlaseni uzivatele aplikace."
+			"description": "Událost prihlaseni uzivatele aplikace."
 		},
 		{
 			"name": "user.logout",
 			"uses": "UserEvent",
-			"description": "Udalost odhlaseni uzivatele aplikace."
+			"description": "Událost odhlaseni uzivatele aplikace."
 		},
 		{
 			"name": "user.page",
 			"className": "UserPageEvent",
 			"extends": "UserEvent",
-			"description": "Udalost stranky uzivatele.",
+			"description": "Událost stranky uzivatele.",
 			"fields": {
 				"uri": {
 					"title": "uri",
@@ -97,7 +259,7 @@
 			"name": "video.event",
 			"className": "VideoEvent",
 			"extends": "AbstractEvent",
-			"description": "Udalost videa (video. prefix pro video udalosti)."
+			"description": "Událost videa (video. prefix pro video udalosti)."
 		},
 		{
 			"name": "video.textsearch",
@@ -125,63 +287,175 @@
 		{
 			"name": "video.play",
 			"uses": "VideoEvent",
-			"description": "Udalost prehrani videa."
+			"description": "Událost přehrání videa."
 		},
 		{
 			"name": "video.pause",
 			"uses": "VideoEvent",
-			"description": "Udalost pozastaveni prehravani videa."
+			"description": "Událost pozastavení přehrávání videa."
 		},
 		{
 			"name": "video.stop",
 			"uses": "VideoEvent",
-			"description": "Udalost zastaveni prehravani videa."
+			"description": "Událost zastavení přehrávání videa."
 		},
 		{
 			"name": "video.favorite",
 			"uses": "VideoEvent",
-			"description": "Udalost prirazeni videa k oblibenym."
+			"description": "Událost prirazeni videa k oblibenym."
 		},
 		{
 			"name": "video.unfavorite",
 			"uses": "VideoEvent",
-			"description": "Udalost odstraneni videa z obligenych."
+			"description": "Událost odstraneni videa z oblíbených."
 		},
 		{
 			"name": "game.event",
 			"className": "GameEvent",
 			"extends": "AbstractEvent",
-			"description": "Udalost hry (game. prefix pro udalosti hry)."
+			"description": "Událost hry (game. prefix pro udalosti hry).",
+			"fields": {
+				"uri": {
+					"name": "uri",
+					"title": "URI",
+					"description": "URI hry.",
+					"type": "uri"
+				}
+			}
 		},
 		{
 			"name": "game.loaded",
 			"uses": "GameEvent",
-			"description": "Udalost nacteni hry."
+			"description": "Událost nacteni hry."
 		},
 		{
 			"name": "game.unloaded",
 			"uses": "GameEvent",
-			"description": "Udalost uvolneni(odstraneni) hry."
+			"description": "Událost uvolneni (odstraneni) hry."
 		},
 		{
 			"name": "game.play",
 			"uses": "GameEvent",
-			"description": "Udalost spusteni hry."
+			"description": "Událost spusteni hry."
 		},
 		{
 			"name": "game.pause",
 			"uses": "GameEvent",
-			"description": "Udalost pozastaveni hry."
+			"description": "Událost pozastaveni hry."
 		},
 		{
 			"name": "game.quit",
 			"uses": "GameEvent",
-			"description": "Udalost ukonceni hry."
+			"description": "Událost ukonceni hry."
 		},
 		{
 			"name": "game.setting",
 			"uses": "GameEvent",
-			"description": "Udalost nastaveni hry uzivatelem."
+			"description": "Událost nastaveni hry uzivatelem."
+		},
+		{
+			"name": "book.event",
+			"className": "BookEvent",
+			"extends": "AbstractEvent",
+			"description": "Obecná událost knihy - eScrapBooku.",
+			"fields": {
+				"bookid": {
+					"title": "bookid",
+					"description": "ID knihy.",
+					"type": "integer"
+				}
+			}
+		},
+		{
+			"name": "book.open",
+			"classname": "BookOpenEvent",
+			"extends": "BookEvent",
+			"description": "Otevření knihy.",
+			"fields": {
+				"bookinfo": {
+					"title": "Book Info",
+					"description": "Informace o knize.",
+					"type": "BookInfo"
+				}
+			}
+		},
+		{
+			"name": "book.close",
+			"uses": "BookEvent",
+			"description": "Zavření knihy."
+		},
+		{
+			"name": "book.turn",
+			"className": "BookTurnEvent",
+			"extends": "BookEvent",
+			"description": "Otočení stránky knihy.",
+			"fields": {
+				"leftpage": {
+					"title": "leftpage",
+					"description": "Informace o levé stránce.",
+					"type": "BookPageInfo"
+				},
+				"rightpage": {
+					"title": "rightpage",
+					"description": "Informace o pravé stránce.",
+					"type": "BookPageInfo"
+				}
+			}
+		},
+		{
+			"name": "book.media",
+			"className": "BookMediaEvent",
+			"extends": "BookEvent",
+			"description": "Událost spojená s audio klipem/videem v knize.",
+			"fields": {
+				"elementno": {
+					"title": "elementno",
+					"description": "Pořadí elementu na zobrazené dvojstraně.",
+					"type": "integer"
+				}
+			}
+		},
+		{
+			"name": "book.audio",
+			"className": "BookAudioEvent",
+			"extends": "BookMediaEvent",
+			"description": "Událost spojená s audio klipem v knize."
+		},
+		{
+			"name": "book.video",
+			"className": "BookVideoEvent",
+			"extends": "BookMediaEvent",
+			"description": "Událost spojená s video klipem v knize."
+		},
+		{
+			"name": "book.audio.start",
+			"uses": "BookAudioEvent",
+			"description": "Událost přehrávání audio stopy v knize."
+		},
+		{
+			"name": "book.audio.pause",
+			"uses": "BookAudioEvent",
+			"description": "Událost pozastavení audio stopy v knize."
+		},
+		{
+			"name": "book.audio.stop",
+			"uses": "BookAudioEvent",
+			"description": "Událost ukončení přehrávání audio stopy v knize."
+		},
+		{
+			"name": "book.video.start",
+			"uses": "BookVideoEvent",
+			"description": "Událost přehrávání videa v knize."
+		},
+		{
+			"name": "book.video.pause",
+			"uses": "BookVideoEvent",
+			"description": "Událost pozastavení videa v knize."
+		},
+		{
+			"name": "book.video.stop",
+			"uses": "BookVideoEvent",
+			"description": "Událost ukončení přehrávání videa v knize."
 		}
 
 

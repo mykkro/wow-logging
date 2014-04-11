@@ -48,13 +48,21 @@ $(document).ready(function() {
 		root.append(out)
 	}
 
+	function displayTypeLink(type) {
+		if(type[0].toUpperCase() == type[0]) {
+			return $("<a>").attr("href", "#"+type).text(type)
+		} else {
+			return $("<span>").text(type)
+		}
+	}
+
 	function displayField(name, data, root) {
 		console.log("Displaying field "+name, data)
 		var out = $("<div>")
 			.addClass("field rounded-corners")
 			.append($("<div>").addClass("name").text(name))
 			.append($("<div>").addClass("title").text(data.title))
-			.append($("<div>").addClass("type").text(data.type))
+			.append($("<div>").addClass("type").html(displayTypeLink(data.type)))
 			.append($("<div>").addClass("description").text(data.description))
 		root.append(out)
 	}
