@@ -1,6 +1,6 @@
 {
 	"$type": "wow-logging-api",
-	"version": "1.0",
+	"version": "1.1",
 	"classes": [
 		{
 			"name": "userinfo",
@@ -456,7 +456,7 @@
 			"name": "game.event",
 			"className": "GameEvent",
 			"extends": "AbstractEvent",
-			"version": "1.0",
+			"version": "1.1",
 			"description": "Obecná událost hry.",
 			"fields": {
 				"gameid": {
@@ -475,7 +475,9 @@
 		},
 		{
 			"name": "game.loaded",
-			"uses": "GameEvent",
+			"className": "GameLoadEvent",
+			"extends": "GameEvent",
+			"version": "1.1",
 			"description": "Událost načtení hry.",
 			"fields": {
 				"gameinfo": {
@@ -491,24 +493,106 @@
 			"description": "Událost uvolneni (odstraneni) hry."
 		},
 		{
-			"name": "game.play",
+			"name": "game.ui.play",
 			"uses": "GameEvent",
-			"description": "Událost spusteni hry."
+			"description": "Událost spusteni hry uživatelem."
 		},
 		{
-			"name": "game.pause",
+			"name": "game.ui.pause",
 			"uses": "GameEvent",
-			"description": "Událost pozastaveni hry."
+			"description": "Událost pozastaveni hry uživatelem."
 		},
 		{
-			"name": "game.quit",
+			"name": "game.ui.quit",
 			"uses": "GameEvent",
-			"description": "Událost ukonceni hry."
+			"description": "Událost ukonceni hry uzivatelem."
+		},
+		{
+			"name": "game.ui.restart",
+			"uses": "GameEvent",
+			"description": "Událost restartování hry uzivatelem."
+		},
+		{
+			"name": "game.stage",			
+			"className": "GameStageEvent",
+			"extends": "GameEvent",
+			"description": "Událost fáze hry.",
+			"version": "1.1",
+			"fields": {
+				"score": {
+					"title": "Skóre",
+					"description": "Skóre",
+					"type": "integer"
+				},
+				"lives": {
+					"title": "Životy",
+					"description": "Životy",
+					"type": "integer"
+				},
+				"level": {
+					"title": "Level",
+					"description": "Level",
+					"type": "integer"
+				}
+			}
+		},
+		{
+			"name": "game.start",			
+			"uses": "GameStageEvent",
+			"description": "Událost začátku hry."
+		},
+		{
+			"name": "game.over",
+			"uses": "GameStageEvent",
+			"description": "Událost konce hry."
+		},
+		{
+			"name": "game.log",
+			"className": "GameLogEvent",
+			"extends": "GameEvent",
+			"description": "Událost změny sledované hodnoty.",
+			"version": "1.1",
+			"fields": {
+				"name": {
+					"title": "Jméno",
+					"description": "Jméno",
+					"type": "string"
+				},
+				"value": {
+					"title": "Hodnota",
+					"description": "Hodnota",
+					"type": "string"
+				}
+			}
+		},
+		{
+			"name": "game.levelup",
+			"uses": "GameStageEvent",
+			"description": "Událost úspěšného ukončení úrovně."
+		},
+		{
+			"name": "game.log.score",
+			"uses": "GameLogEvent",
+			"description": "Událost změny skóre."
+		},
+		{
+			"name": "game.log.lives",
+			"uses": "GameLogEvent",
+			"description": "Událost změny počtu životů."
 		},
 		{
 			"name": "game.setting",
-			"uses": "GameEvent",
-			"description": "Událost nastaveni hry uzivatelem."
+			"className": "GameSettingsEvent",
+			"extends": "GameEvent",
+			"version": "1.1",
+			"description": "Událost nastaveni hry uzivatelem.",
+			"fields": {
+				"settings": {
+					"title": "Nastavení",
+					"description": "Uživatelské nastavení",
+					"type": "object"
+				}
+			}
 		},
 		{
 			"name": "book.event",
@@ -619,9 +703,41 @@
 			"name": "book.video.stop",
 			"uses": "BookVideoEvent",
 			"description": "Událost ukončení přehrávání videa v knize."
+		},
+
+		{
+			"name": "radio.event",
+			"className": "RadioEvent",
+			"extends": "AbstractEvent",
+			"version": "1.1",
+			"description": "Událost spojená s internet. rádiem.",
+			"fields": {
+				"uri": {
+					"title": "uri",
+					"description": "URL internet. rádia.",
+					"type": "uri"
+				}
+			}
+		},
+		{
+			"name": "radio.play",
+			"uses": "RadioEvent",
+			"description": "Událost přehrávání."
+		},
+		{
+			"name": "radio.stop",
+			"uses": "RadioEvent",
+			"description": "Událost vypnutí."
+		},
+		{
+			"name": "radio.ui.previous",
+			"uses": "RadioEvent",
+			"description": "Událost zvolení předchozí stopy."
+		},
+		{
+			"name": "radio.ui.next",
+			"uses": "RadioEvent",
+			"description": "Událost zvolení následující stopy."
 		}
-
-
-
 	]
 }
