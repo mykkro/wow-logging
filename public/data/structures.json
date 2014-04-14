@@ -1,6 +1,7 @@
 {
 	"$type": "wow-logging-api",
 	"version": "1.1",
+    "lastUpdate": "2014-04-14T15:01:41",
 	"classes": [
 		{
 			"name": "userinfo",
@@ -8,6 +9,7 @@
 			"extends": null,
 			"description": "Informace o uživateli.",
 			"version": "1.0",
+            "lastUpdate": "2014-04-14T15:01:41",
 			"fields": {
 				"userid": {
 					"name": "userid",

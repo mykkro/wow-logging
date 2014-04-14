@@ -103,6 +103,9 @@ $(document).ready(function() {
 		console.log(data)
 		var cls = data.classes
 		cls.sortOn("name")
+        $("#api-version").text(data.version)
+        $("#api-updated").text(data.lastUpdate)
+
 		displayClasses(cls)
 	})
 })

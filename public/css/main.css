@@ -48,6 +48,33 @@ a, a:link {
    font-style: italic;
 }
 
+.eventclass .updated:before {
+   content: "Last Update: ";
+   color: #666;
+   font-style: italic;
+}
+
+
+.api-version {
+    margin-left: 20px;
+}
+
+.api-version:before {
+   content: "Version: ";
+   color: #666;
+   font-style: italic;
+}
+
+.api-updated {
+    margin-left: 20px;
+}
+
+.api-updated:before {
+   content: "Last Update: ";
+   color: #666;
+   font-style: italic;
+}
+
 .eventclass .defs:before {
    content: "Defines class: ";
    color: #666;
