@@ -1,7 +1,7 @@
 {
 	"$type": "wow-logging-api",
-	"version": "1.1",
-    "lastUpdate": "2014-04-14T15:01:41",
+	"version": "1.2",
+    "lastUpdate": "2014-04-15T09:01:12",
 	"classes": [
 		{
 			"name": "userinfo",
@@ -399,6 +399,25 @@
 			}
 		},
 		{
+			"name": "user.questionary",
+			"className": "UserQuestionaryEvent",
+			"extends": "UserEvent",
+			"version": "1.0",
+			"description": "Odeslání vyplněného dotazníku.",
+			"fields": {
+				"uri": {
+					"title": "uri",
+					"description": "URI dotazníku.",
+					"type": "string"
+				},
+				"answers": {
+					"title": "Odpovědi",
+					"description": "Řetězec obsahující odpovědi na jednotlivé otázky.",
+					"type": "string"
+				}
+			}
+		},
+		{
 			"name": "video.event",
 			"className": "VideoEvent",
 			"extends": "AbstractEvent",
@@ -706,7 +725,6 @@
 			"uses": "BookVideoEvent",
 			"description": "Událost ukončení přehrávání videa v knize."
 		},
-
 		{
 			"name": "radio.event",
 			"className": "RadioEvent",
@@ -740,6 +758,86 @@
 			"name": "radio.ui.next",
 			"uses": "RadioEvent",
 			"description": "Událost zvolení následující stopy."
+		},
+		{
+			"name": "gps.event",
+			"className": "GPSEvent",
+			"extends": "AbstractEvent",
+			"version": "1.0",
+			"description": "Událost spojená s GPS.",
+			"fields": {
+				"deviceid": {
+					"title": "deviceid",
+					"description": "ID GPS zařízení.",
+					"type": "string"
+				}
+			}
+		},
+		{
+			"name": "gps.location",
+			"className": "GPSLocationEvent",
+			"extends": "GPSEvent",
+			"version": "1.0",
+			"description": "Změna polohy GPS.",
+			"fields": {
+				"latitude": {
+					"title": "latitude",
+					"description": "GPS Latitude.",
+					"type": "string"
+				},
+				"longitude": {
+					"title": "longitude",
+					"description": "GPS Longitude.",
+					"type": "string"
+				}
+			}
+		},
+		{
+			"name": "physio.event",
+			"className": "PhysioEvent",
+			"extends": "AbstractEvent",
+			"version": "1.0",
+			"description": "Physio data event.",
+			"fields": {
+				"deviceid": {
+					"title": "deviceid",
+					"description": "ID zařízení.",
+					"type": "string"
+				}
+			}
+		},
+		{
+			"name": "physio.pressure",
+			"className": "PhysioPressureEvent",
+			"extends": "PhysioEvent",
+			"version": "1.0",
+			"description": "Blood pressure data.",
+			"fields": {
+				"systolic": {
+					"title": "systolic",
+					"description": "Systolic pressure.",
+					"type": "number"
+				},
+				"diastolic": {
+					"title": "diastolic",
+					"description": "Diastolic pressure.",
+					"type": "number"
+				},
+				"pulse": {
+					"title": "pulse",
+					"description": "Pulse.",
+					"type": "number"
+				}
+			}
+		},
+		{
+			"name": "physio.balance",
+			"className": "PhysioBalanceEvent",
+			"extends": "PhysioEvent",
+			"version": "1.0",
+			"description": "Balance data.",
+			"fields": {
+			}
 		}
 	]
 }

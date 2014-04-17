@@ -137,7 +137,7 @@ $(document).ready(function() {
 		var paper = new joint.dia.Paper({
 		    el: $('#paper'),
 		    width: 1000,
-		    height: 2500,
+		    height: 3000,
 		    gridSize: 1,
 		    model: graph
 		});
