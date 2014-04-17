@@ -13,13 +13,14 @@ module.exports = function(grunt) {
     },
     jsonlint: {
       events: {
-        src: [ 'public/data/events.json' ]
+        src: [ 'public/data/wow-logging-spec.json' ]
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-jsonlint');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
   // Default task(s).
   grunt.registerTask('default', [ 'jsonlint', 'connect:server:keepalive' ]);

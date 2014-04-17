@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	var eventsDescUri = "data/structures.json"
+	var eventsDescUri = "data/wow-logging-spec.json"
 
 	var root = $("#eventdocs")
 
@@ -99,6 +99,69 @@ $(document).ready(function() {
 	    });
 	}
 
+	$("#showList").click(function() {
+		$("#views .view").hide()
+		$("#eventdocs").show()
+		return false
+	})
+
+	$("#showDiagram").click(function() {
+		$("#views .view").hide()
+		$("#classgraph").show()
+		return false
+	})
+
+	var graph = new joint.dia.Graph;
+	var uml = joint.shapes.uml;
+
+	var generateClassInfo = function(c) {
+	    var attrs = []
+	    var lines = 0
+	    if(c.fields) {
+	        for(var key in c.fields) {
+	            var attr = key + ": " + c.fields[key].type
+	            attrs.push(attr)
+	            lines++
+	        }
+	    }
+	    return new uml.Class({
+	        position: { x:0  , y: 0 },
+	        size: { width: 220, height: 40 + lines*16 },
+	        name: c.className,
+	        attributes: attrs,
+	        methods: []
+	    })
+	}
+
+	var displayDiagram = function(cls) {
+		var paper = new joint.dia.Paper({
+		    el: $('#paper'),
+		    width: 1000,
+		    height: 2500,
+		    gridSize: 1,
+		    model: graph
+		});
+
+	    var jointClasses = {}
+	    var relations = []
+	    _.each(cls, function(c) {
+	        if(c.className) {
+	            console.log("Processing class: "+c.className)
+	            jointClasses[c.className] = generateClassInfo(c)
+	        }
+	    })
+	    _.each(cls, function(c) {
+	        if(c.extends && c.className) {
+	            var thisClass = jointClasses[c.className]
+	            var parentClass = jointClasses[c.extends]
+	            relations.push(new uml.Generalization({ source: { id: thisClass.id }, target: { id: parentClass.id }}))
+	        }
+	    })
+	    _.each(jointClasses, function(c) { graph.addCell(c); });
+	    _.each(relations, function(r) { graph.addCell(r); });
+	    joint.layout.DirectedGraph.layout(graph, { setLinkVertices: false, rankDir: 'RL' });
+	}
+
 	$.getJSON(eventsDescUri).done(function(data) {
 		console.log(data)
 		var cls = data.classes
@@ -107,5 +170,6 @@ $(document).ready(function() {
         $("#api-updated").text(data.lastUpdate)
 
 		displayClasses(cls)
+		displayDiagram(cls)
 	})
 })

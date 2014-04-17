@@ -11,21 +11,83 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/joint.css">
+
+        <script src="js/jquery-2.1.0.js"></script>
+        <script src="js/joint.js"></script>
+        <script src="js/joint.shapes.uml.js"></script>
+        <script src="js/joint.layout.DirectedGraph.js"></script>
+        <script src="js/plugins.js"></script>
+
     </head>
     <body>
         <h2>Testing Page</h2>
         <div id="container">
-            <div id="nav" class="nav rounded-corners">
-            </div>
-            <div id="eventdocs"></div>
         </div>
 
-        <script src="js/jquery-2.1.0.js"></script>
-        <script src="js/joint.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
+        <div id="paper">
+        </div>
+        <script>
+var graph = new joint.dia.Graph;
 
-	<script>
+var paper = new joint.dia.Paper({
+    el: $('#paper'),
+    width: 1000,
+    height: 2500,
+    gridSize: 1,
+    model: graph
+});
+
+
+var uml = joint.shapes.uml;
+
+var generateClassInfo = function(c) {
+    var attrs = []
+    var lines = 0
+    if(c.fields) {
+        for(var key in c.fields) {
+            var attr = key + ": " + c.fields[key].type
+            attrs.push(attr)
+            lines++
+        }
+    }
+    return new uml.Class({
+        position: { x:0  , y: 0 },
+        size: { width: 220, height: 40 + lines*16 },
+        name: c.className,
+        attributes: attrs,
+        methods: []
+    })
+}
+
+$.getJSON("data/structures.json").done(function(data) {
+    var cls = data.classes
+    var jointClasses = {}
+    var relations = []
+    _.each(cls, function(c) {
+        if(c.className) {
+            console.log("Processing class: "+c.className)
+            jointClasses[c.className] = generateClassInfo(c)
+        }
+    })
+    _.each(cls, function(c) {
+        if(c.extends && c.className) {
+            var thisClass = jointClasses[c.className]
+            var parentClass = jointClasses[c.extends]
+            relations.push(new uml.Generalization({ source: { id: thisClass.id }, target: { id: parentClass.id }}))
+        }
+    })
+    _.each(jointClasses, function(c) { graph.addCell(c); });
+    _.each(relations, function(r) { graph.addCell(r); });
+    joint.layout.DirectedGraph.layout(graph, { setLinkVertices: false, rankDir: 'RL' });
+})
+
+        </script>
+
+	   <script>
+       $(document).ready(function() {
+            console.log("Ready!")
+            /// ...
+       })
         </script>
     </body>
 </html>

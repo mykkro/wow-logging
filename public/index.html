@@ -13,17 +13,27 @@
         <link rel="stylesheet" href="css/joint.css">
     </head>
     <body>
+        <div id="infos">
         <h2>WOW Logger - Data Structures Overview</h2>
-        <h3><div id="api-version" class="api-version"></div></h3>
-        <h3><div id="api-updated" class="api-updated"></div></h3>
+        <div>Download specification file: <a href="data/wow-logging-spec.json">wow-logging-spec.json</a></div>
+        <div id="api-version" class="api-version"></div>
+        <div id="api-updated" class="api-updated"></div>
+        <ul><li><a href="#" id="showList">Show class list</a></li><li><a id="showDiagram" href="#">Show class diagram</a></li></div>
+        </div>
         <div id="container">
             <div id="nav" class="nav rounded-corners">
             </div>
-            <div id="eventdocs"></div>
+            <div class="views" id="views">
+                <div class="view" id="eventdocs"></div>
+                <div class="view" id="classgraph"><div id="paper" class="rounded-corners"></div></div>
+            </div>
         </div>
 
         <script src="js/jquery-2.1.0.js"></script>
+        <script src="js/underscore.js"></script>
         <script src="js/joint.js"></script>
+        <script src="js/joint.shapes.uml.js"></script>
+        <script src="js/joint.layout.DirectedGraph.js"></script>
         <script src="js/date.format.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>

@@ -1,7 +1,3 @@
-h2 {
-  margin: 20px;
-}
-
 a, a:link {
 	text-decoration: none;
 }
@@ -11,7 +7,15 @@ a, a:link {
 	border: 1px solid #ade;
 	padding: 10px;
 	margin: 10px;
+}
 
+#paper {
+  background-color: #bef;
+  border: 1px solid #ade;
+  padding: 10px;
+  margin: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .eventclass.use {
@@ -55,9 +59,6 @@ a, a:link {
 }
 
 
-.api-version {
-    margin-left: 20px;
-}
 
 .api-version:before {
    content: "Version: ";
@@ -65,9 +66,6 @@ a, a:link {
    font-style: italic;
 }
 
-.api-updated {
-    margin-left: 20px;
-}
 
 .api-updated:before {
    content: "Last Update: ";
@@ -114,7 +112,7 @@ a, a:link {
 	font-size: 80%;
 }
 
-#nav, #eventdocs {
+#nav, #views {
   display: inline-block;
   vertical-align: top;
 }
@@ -135,6 +133,10 @@ a, a:link {
      padding-left: 10px;
 }
 
-#eventdocs {
-  width: 800px;
+#infos {
+  margin-left: 20px;
+}
+
+#views {
+  width: 1020px;
 }
