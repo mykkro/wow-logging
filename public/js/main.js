@@ -119,7 +119,9 @@ $(document).ready(function() {
 	    var lines = 0
 	    if(c.fields) {
 	        for(var key in c.fields) {
-	            var attr = key + ": " + c.fields[key].type
+	        	var type = c.fields[key].type
+	        	if(type == "array") type = "Array of "+c.fields[key].items.type
+	            var attr = key + ": " + type
 	            attrs.push(attr)
 	            lines++
 	        }
@@ -136,8 +138,8 @@ $(document).ready(function() {
 	var displayDiagram = function(cls) {
 		var paper = new joint.dia.Paper({
 		    el: $('#paper'),
-		    width: 1000,
-		    height: 3000,
+		    width: 1500,
+		    height: 2500,
 		    gridSize: 1,
 		    model: graph
 		});
@@ -146,7 +148,6 @@ $(document).ready(function() {
 	    var relations = []
 	    _.each(cls, function(c) {
 	        if(c.className) {
-	            console.log("Processing class: "+c.className)
 	            jointClasses[c.className] = generateClassInfo(c)
 	        }
 	    })
@@ -155,6 +156,21 @@ $(document).ready(function() {
 	            var thisClass = jointClasses[c.className]
 	            var parentClass = jointClasses[c.extends]
 	            relations.push(new uml.Generalization({ source: { id: thisClass.id }, target: { id: parentClass.id }}))
+	        }
+	    })
+	    _.each(cls, function(c) {
+	        if(c.fields) {
+	            var thisClass = jointClasses[c.className]
+	            for(var key in c.fields) {
+	            	var field = c.fields[key]
+	            	if(field.type in jointClasses) {
+			            var nestedClass = jointClasses[field.type]
+			            relations.push(new uml.Composition({ source: { id: nestedClass.id }, target: { id: thisClass.id }}))
+	            	} else if(field.type == "array" && field.items.type in jointClasses) {
+			            var nestedClass = jointClasses[field.items.type]
+			            relations.push(new uml.Composition({ source: { id: nestedClass.id }, target: { id: thisClass.id }}))
+	            	}
+	            }
 	        }
 	    })
 	    _.each(jointClasses, function(c) { graph.addCell(c); });

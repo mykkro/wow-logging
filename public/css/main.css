@@ -10,8 +10,10 @@ a, a:link {
 }
 
 #paper {
+  /*
   background-color: #bef;
   border: 1px solid #ade;
+  */
   padding: 10px;
   margin: 10px;
   box-sizing: border-box;
